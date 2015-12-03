@@ -2,7 +2,9 @@ package uk.me.eastmans.tabella.web.controller;
 
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
+import uk.me.eastmans.tabella.service.BallotService;
 
+import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +15,9 @@ import java.util.Calendar;
  */
 public class HomeController implements IThymeleafController
 {
+    @Inject
+    private BallotService ballotService;
+
     public void process(
             final HttpServletRequest request, final HttpServletResponse response,
             final ServletContext servletContext, final TemplateEngine templateEngine)
