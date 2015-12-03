@@ -15,7 +15,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/*")
+@WebServlet(urlPatterns = {"/home"})
 public class TabellaServlet extends HttpServlet
 {
     private TemplateEngine templateEngine;
@@ -62,7 +62,7 @@ public class TabellaServlet extends HttpServlet
         ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
 
         // XHTML is the default mode, but we will set it anyway for better understanding of code
-        templateResolver.setTemplateMode("XHTML");
+        templateResolver.setTemplateMode("HTML5");
         // This will convert "home" to "/WEB-INF/templates/home.html"
         templateResolver.setPrefix("/WEB-INF/templates/");
         templateResolver.setSuffix(".html");
