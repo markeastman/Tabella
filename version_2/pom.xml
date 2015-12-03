@@ -26,6 +26,8 @@
 
         <!-- Dependencies -->
         <version.dependency.javaee>7.0</version.dependency.javaee>
+        <version.thymeleaf>2.1.4.RELEASE</version.thymeleaf>
+
     </properties>
 
     <build>
@@ -93,11 +95,20 @@
     </build>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+            <version>${version.thymeleaf}</version>
+            <scope>compile</scope>
+        </dependency>
+
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>${version.dependency.javaee}</version>
             <scope>provided</scope>
         </dependency>
+
     </dependencies>
 </project>
