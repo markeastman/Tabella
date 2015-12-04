@@ -8,17 +8,12 @@ import java.util.List;
 /**
  * Created by meastman on 03/12/15.
  */
-@Entity
 public class Ballot
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id")
-    @SequenceGenerator(name = "id", sequenceName = "id")
     private Long id;
 
     private String question;
 
-    @ElementCollection
     private List<String> answers = new ArrayList<>();
 
     public Ballot() {}
