@@ -13,7 +13,6 @@ import java.util.List;
  * Created by meastman on 03/12/15.
  */
 @ApplicationScoped
-@Named
 public class BallotService
 {
     public List<Ballot> getAllBallots()
