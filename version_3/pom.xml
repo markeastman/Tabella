@@ -26,6 +26,7 @@
 
         <!-- Dependencies -->
         <version.dependency.javaee>7.0</version.dependency.javaee>
+        <version.dependency.cdi>1.2</version.dependency.cdi>
         <version.thymeleaf>2.1.4.RELEASE</version.thymeleaf>
 
     </properties>
@@ -107,6 +108,13 @@
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>${version.dependency.javaee}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <version>${version.dependency.cdi}</version>
             <scope>provided</scope>
         </dependency>
 

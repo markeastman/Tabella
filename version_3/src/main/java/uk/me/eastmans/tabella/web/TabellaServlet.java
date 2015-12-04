@@ -2,9 +2,13 @@ package uk.me.eastmans.tabella.web;
 
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import uk.me.eastmans.tabella.service.BallotService;
+import uk.me.eastmans.tabella.web.controller.CreateBallotController;
 import uk.me.eastmans.tabella.web.controller.HomeController;
 import uk.me.eastmans.tabella.web.controller.IThymeleafController;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,13 +19,20 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/home"})
+@WebServlet(urlPatterns = {"/home", "/create"})
 public class TabellaServlet extends HttpServlet
 {
     private TemplateEngine templateEngine;
     private Map<String,IThymeleafController> controllersByURL;
 
-    public TabellaServlet()
+    @Inject
+    private HomeController homeController;
+
+    @Inject
+    private CreateBallotController createBallotController;
+
+    @PostConstruct
+    public void initializeServlet()
     {
         // Initialise the thymeleaf engine and controllers
         initializeTemplateEngine();
@@ -52,6 +63,7 @@ public class TabellaServlet extends HttpServlet
             }
             catch (Exception e)
             {
+                e.printStackTrace();
                 throw new ServletException(e);
             }
         }
@@ -80,14 +92,8 @@ public class TabellaServlet extends HttpServlet
     private void initializeControllersByURL()
     {
         controllersByURL = new HashMap<String, IThymeleafController>();
-        controllersByURL.put("/home", new HomeController());
-/*        controllersByURL.put("/product/list", new ProductListController());
-        controllersByURL.put("/product/comments", new ProductCommentsController());
-        controllersByURL.put("/order/list", new OrderListController());
-        controllersByURL.put("/order/details", new OrderDetailsController());
-        controllersByURL.put("/subscribe", new SubscribeController());
-        controllersByURL.put("/userprofile", new UserProfileController());
-*/
+        controllersByURL.put("/home", homeController);
+        controllersByURL.put("/create", createBallotController);
     }
 
     private String getRequestPath(final HttpServletRequest request) {

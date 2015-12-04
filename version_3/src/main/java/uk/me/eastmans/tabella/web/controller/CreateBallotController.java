@@ -15,7 +15,7 @@ import java.util.Calendar;
  * Created by meastman on 03/12/15.
  */
 @ApplicationScoped
-public class HomeController implements IThymeleafController
+public class CreateBallotController implements IThymeleafController
 {
     @Inject
     private BallotService ballotService;
@@ -26,9 +26,9 @@ public class HomeController implements IThymeleafController
             throws Exception {
 
         WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-        ctx.setVariable("ballots", ballotService.getAllBallots());
+        ctx.setVariable("today", Calendar.getInstance());
 
-        templateEngine.process("home", ctx, response.getWriter());
+        templateEngine.process("create", ctx, response.getWriter());
     }
 
 }
