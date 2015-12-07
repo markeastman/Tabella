@@ -5,23 +5,31 @@ import uk.me.eastmans.tabella.data.Ballot;
 import javax.ejb.Stateful;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Model;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by meastman on 03/12/15.
  */
+@Stateful
 @ApplicationScoped
 public class BallotService
 {
+    @Inject
+    private EntityManager em;
+
     public List<Ballot> getAllBallots()
     {
-        // Build a list of all the ballots for now,
-        // later we will get them from the database
-        List<Ballot> ballots = new ArrayList<>();
-        ballots.add( new Ballot( "Your favourite colour", "red", "green", "blue") );
-        ballots.add( new Ballot( "Your favourite shape", "circle", "triangle", "square", "pentagram") );
+        Query query = em.createQuery("SELECT b FROM Ballot b");
+        List<Ballot> ballots = query.getResultList();
         return ballots;
     }
 }

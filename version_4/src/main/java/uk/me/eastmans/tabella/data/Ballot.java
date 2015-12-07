@@ -2,6 +2,8 @@ package uk.me.eastmans.tabella.data;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.ws.rs.client.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +13,7 @@ import java.util.List;
  * Created by meastman on 03/12/15.
  */
 @Entity
+@Table(name = "BALLOT")
 public class Ballot
 {
     @Id
@@ -18,9 +21,12 @@ public class Ballot
     @SequenceGenerator(name = "id", sequenceName = "id")
     private Long id;
 
+    @NotNull
+    @Size(min = 1, max = 255)
     private String question;
 
-    @ElementCollection
+    @ElementCollection(fetch =  FetchType.EAGER)
+    @OrderColumn(name = "answer_sequence")
     private List<String> answers = new ArrayList<>();
 
     public Ballot() {}
@@ -60,16 +66,20 @@ public class Ballot
         if (this == o) { return true; }
         if (o == null || getClass() != o.getClass()) { return false; }
 
-        Ballot person = (Ballot) o;
+        Ballot ballot = (Ballot) o;
 
-        if (id == null || person.id == null)
+        if (id == null || ballot.id == null)
             return false;
-        return id.equals(person.id);
+        return id.equals(ballot.id);
     }
 
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : -1;
+    }
+
+    public String toString() {
+        return getQuestion() + ":" + getAnswers();
     }
 
 }
