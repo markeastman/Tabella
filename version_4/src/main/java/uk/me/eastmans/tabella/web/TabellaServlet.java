@@ -2,7 +2,6 @@ package uk.me.eastmans.tabella.web;
 
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
-import uk.me.eastmans.tabella.service.BallotService;
 import uk.me.eastmans.tabella.web.controller.CreateBallotController;
 import uk.me.eastmans.tabella.web.controller.HomeController;
 import uk.me.eastmans.tabella.web.controller.IThymeleafController;
@@ -15,11 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/home", "/create"})
+@WebServlet(urlPatterns = {"/home", "/create/*"})
 public class TabellaServlet extends HttpServlet
 {
     private TemplateEngine templateEngine;
@@ -50,16 +48,54 @@ public class TabellaServlet extends HttpServlet
         response.setDateHeader("Expires", 0);
 
         // Use the template engine to handle the request
-        final String path = getRequestPath(request);
+        String path = getRequestPath(request);
+        // Now we only want to handle the first path part to get controller name
+        System.out.println( "Checking path " + path );
         IThymeleafController controller = controllersByURL.get(path);
         if (controller == null)
         {
+            System.out.println( "WARNING: No such controller found " + path);
             response.setStatus(404);
         }
         else
         {
             try {
-                controller.process(request, response, getServletContext(), templateEngine);
+                controller.processGet(request, response, getServletContext(), templateEngine);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                throw new ServletException(e);
+            }
+        }
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        /*
+         * Write the response headers
+         */
+        response.setContentType("text/html;charset=UTF-8");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expires", 0);
+
+        // Use the template engine to handle the request
+        String path = getRequestPath(request);
+        System.out.println( "Checking path " + path );
+        int index = path.lastIndexOf('/');
+        if (index > 0)
+            path = path.substring(0, index);
+        IThymeleafController controller = controllersByURL.get(path);
+        if (controller == null)
+        {
+            System.out.println( "WARNING: No such controller found " + path);
+            response.setStatus(404);
+        }
+        else
+        {
+            try {
+                controller.processPost(request, response, getServletContext(), templateEngine);
             }
             catch (Exception e)
             {

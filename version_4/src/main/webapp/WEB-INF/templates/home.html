@@ -65,6 +65,7 @@
             <table>
                 <tr data-th-each="ballot : ${ballots}">
                     <td>
+                        <span data-th-text="${ballot.id+' '}" />
                         <span data-th-text="${ballot.question+':'}" />
                         <span data-th-each="answer : ${ballot.answers}" data-th-text="${answer}" />
                     </td>

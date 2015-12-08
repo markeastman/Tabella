@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,5 +32,11 @@ public class BallotService
         Query query = em.createQuery("SELECT b FROM Ballot b");
         List<Ballot> ballots = query.getResultList();
         return ballots;
+    }
+
+    public void addBallot( String question, List<String> answers )
+    {
+        Ballot ballot = new Ballot( question, answers );
+        em.persist( ballot );
     }
 }

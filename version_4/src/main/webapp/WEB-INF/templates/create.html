@@ -62,10 +62,19 @@
         </nav>
 
         <div class="container theme-showcase" role="main">
-            <div class="jumbotron">
-                <h1>Create Ballot Form</h1>
-                <p>We would show the form for creating a new ballot</p>
-            </div>
+            <form action="#" data-th-action="@{/create/add}" data-th-object="${ballotDTO}" method="post">
+                Question: <input id="question" name="question" type="text" /><br/>
+                Answer 1: <input id="answer1" name="answers" type="text" /><br/>
+                Answer 2: <input id="answer2" name="answers" type="text" /><br/>
+                Answer 3: <input id="answer3" name="answers" type="text" /><br/>
+                Answer 4: <input id="answer4" name="answers" type="text" /><br/>
+                Answer 5: <input id="answer5" name="answers" type="text" /><br/>
+                Answer 6: <input id="answer6" name="answers" type="text" /><br/>
+                Answer 7: <input id="answer7" name="answers" type="text" /><br/>
+                Answer 8: <input id="answer8" name="answers" type="text" /><br/>
+                Answer 9: <input id="answer9" name="answers" type="text" /><br/>
+                <button type="submit" >Create</button>
+            </form>
         </div>
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

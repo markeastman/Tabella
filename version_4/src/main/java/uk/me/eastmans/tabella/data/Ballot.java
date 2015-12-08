@@ -17,8 +17,7 @@ import java.util.List;
 public class Ballot
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id")
-    @SequenceGenerator(name = "id", sequenceName = "id")
+    @GeneratedValue
     private Long id;
 
     @NotNull
@@ -31,10 +30,16 @@ public class Ballot
 
     public Ballot() {}
 
-    public Ballot( String question, String... answers)
+    public Ballot(String question, String... answers)
     {
         this.question = question;
         this.answers.addAll(Arrays.asList(answers));
+    }
+
+    public Ballot(String question, List<String> answers)
+    {
+        this.question = question;
+        this.answers.addAll(answers);
     }
 
     public Long getId() {

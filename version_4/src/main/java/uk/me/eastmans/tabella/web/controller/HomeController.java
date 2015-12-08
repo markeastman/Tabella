@@ -20,7 +20,7 @@ public class HomeController implements IThymeleafController
     @Inject
     private BallotService ballotService;
 
-    public void process(
+    public void processGet(
             final HttpServletRequest request, final HttpServletResponse response,
             final ServletContext servletContext, final TemplateEngine templateEngine)
             throws Exception {
@@ -29,6 +29,13 @@ public class HomeController implements IThymeleafController
         ctx.setVariable("ballots", ballotService.getAllBallots());
 
         templateEngine.process("home", ctx, response.getWriter());
+    }
+
+    public void processPost(
+            final HttpServletRequest request, final HttpServletResponse response,
+            final ServletContext servletContext, final TemplateEngine templateEngine)
+            throws Exception {
+
     }
 
 }
