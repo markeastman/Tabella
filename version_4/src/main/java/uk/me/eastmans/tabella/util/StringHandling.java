@@ -1,11 +1,8 @@
 package uk.me.eastmans.tabella.util;
 
-import javax.enterprise.inject.New;
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
-import java.net.URL;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,9 +16,9 @@ public class StringHandling
     public static Map<String,List<String>> extractRequestParams(HttpServletRequest request)
     {
         Map<String,List<String>> params = new HashMap<>();
-        StringBuffer jb = new StringBuffer();
-        String line = null;
         try {
+            StringBuilder jb = new StringBuilder();
+            String line = null;
             BufferedReader reader = request.getReader();
             while ((line = reader.readLine()) != null)
                 jb.append(line);
