@@ -30,6 +30,7 @@ public class BallotService
     public List<Ballot> getAllBallots()
     {
         Query query = em.createQuery("SELECT b FROM Ballot b");
+        query.setMaxResults(50);
         List<Ballot> ballots = query.getResultList();
         return ballots;
     }
