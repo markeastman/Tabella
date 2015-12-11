@@ -76,15 +76,6 @@
             </plugin>
 
             <plugin>
-                <groupId>external.atlassian.jgitflow</groupId>
-                <artifactId>jgitflow-maven-plugin</artifactId>
-                <version>${version.plugin.jgitflow}</version>
-                <configuration>
-                    <noDeploy>true</noDeploy>
-                </configuration>
-            </plugin>
-
-            <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>${version.plugin.wildfly}</version>
