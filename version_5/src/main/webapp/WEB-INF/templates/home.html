@@ -62,15 +62,18 @@
         </nav>
 
         <div class="container theme-showcase" role="main">
-            <table>
-                <tr data-th-each="ballot : ${ballots}">
-                    <td>
-                        <span data-th-text="${ballot.id+' '}" />
-                        <span data-th-text="${ballot.question+':'}" />
-                        <span data-th-each="answer : ${ballot.answers}" data-th-text="${answer}" />
-                    </td>
-                </tr>
-            </table>
+            <div class="well" data-th-each="ballot : ${ballots}">
+                <form action="#" data-th-action="@{/ballot/update}" method="POST" >
+                    <input type="hidden" name="id" data-th-value="${ballot.id}" value="0"/>
+                    <label class="ballotTitle" data-th-text="${ballot.id}+' : '+${ballot.question}" /><br/>
+                    <div class="ballotAnswers">
+                        <div class="radio" data-th-each="answer,status : ${ballot.answers}">
+                            <label><input type="radio" data-th-name="${ballot.id}" data-th-value="${status.index}" data-th-text="${answer}" >option</input></label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-default btn-success">Confirm</button>
+                </form>
+            </div>
         </div>
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

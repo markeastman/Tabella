@@ -28,6 +28,8 @@ public class Ballot
     @OrderColumn(name = "answer_sequence")
     private List<String> answers = new ArrayList<>();
 
+    private Integer answerIndex = -1;
+
     public Ballot() {}
 
     public Ballot(String question, String... answers)
@@ -64,6 +66,14 @@ public class Ballot
 
     public void setAnswers(List<String> answers) {
         this.answers = answers;
+    }
+
+    public Integer getAnswerIndex() {
+        return answerIndex;
+    }
+
+    public void setAnswerIndex(Integer answerIndex) {
+        this.answerIndex = answerIndex;
     }
 
     @Override

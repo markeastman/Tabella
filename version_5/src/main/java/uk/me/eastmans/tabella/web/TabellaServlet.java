@@ -5,6 +5,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import uk.me.eastmans.tabella.web.controller.CreateBallotController;
 import uk.me.eastmans.tabella.web.controller.HomeController;
 import uk.me.eastmans.tabella.web.controller.IThymeleafController;
+import uk.me.eastmans.tabella.web.controller.UpdateBallotController;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/home", "/create/*"})
+@WebServlet(urlPatterns = {"/home", "/create/*", "/ballot/*"})
 public class TabellaServlet extends HttpServlet
 {
     private TemplateEngine templateEngine;
@@ -28,6 +29,9 @@ public class TabellaServlet extends HttpServlet
 
     @Inject
     private CreateBallotController createBallotController;
+
+    @Inject
+    private UpdateBallotController updateBallotController;
 
     @PostConstruct
     public void initializeServlet()
@@ -130,6 +134,7 @@ public class TabellaServlet extends HttpServlet
         controllersByURL = new HashMap<String, IThymeleafController>();
         controllersByURL.put("/home", homeController);
         controllersByURL.put("/create", createBallotController);
+        controllersByURL.put("/ballot", updateBallotController);
     }
 
     private String getRequestPath(final HttpServletRequest request) {

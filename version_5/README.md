@@ -1,2 +1,2 @@
 # Tabella Version 5
-Adds a module for JMeter tests
+Adds JMeter tests to test the retrieval and the inserts

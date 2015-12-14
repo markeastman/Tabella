@@ -29,7 +29,7 @@ public class BallotService
 
     public List<Ballot> getAllBallots()
     {
-        Query query = em.createQuery("SELECT b FROM Ballot b");
+        Query query = em.createQuery("SELECT b FROM Ballot b where answerIndex = -1 order by id desc");
         query.setMaxResults(50);
         List<Ballot> ballots = query.getResultList();
         return ballots;
@@ -39,5 +39,30 @@ public class BallotService
     {
         Ballot ballot = new Ballot( question, answers );
         em.persist( ballot );
+    }
+
+    public void answerBallot( String ballotId, String answerIndex )
+    {
+        // Get the ballot
+        Ballot b = getBallot( ballotId );
+        if (b != null)
+        {
+            int index = Integer.parseInt(answerIndex);
+            // get the answers and check the index
+            if (index >= 0 && index < b.getAnswers().size())
+            {
+                // Add the answer for this person
+                b.setAnswerIndex( index );
+                em.persist(b);
+            }
+        }
+    }
+
+    public Ballot getBallot(String stringId)
+    {
+        Long id = Long.parseLong(stringId);
+        Query query = em.createQuery("select b from Ballot b where id = :id");
+        query.setParameter("id",id);
+        return (Ballot)query.getSingleResult();
     }
 }

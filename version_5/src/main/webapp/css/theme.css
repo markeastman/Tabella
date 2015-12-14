@@ -16,3 +16,12 @@ body {
 .theme-showcase .navbar .container {
   width: auto;
 }
+
+.ballotTitle {
+    font-size: bigger;
+    font-weight: bold;
+}
+
+.ballotAnswers {
+    margin-left: 20px;
+}
