@@ -112,8 +112,16 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>1.1.10.Final</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
     <dependencies>
 
         <dependency>
@@ -130,30 +138,14 @@
             <scope>provided</scope>
         </dependency>
 
-    </dependencies>
+        <dependency>
+            <groupId>org.jboss.as</groupId>
+            <artifactId>jboss-as-testsuite-shared</artifactId>
+            <version>7.2.0.Final</version>
+            <scope>test</scope>
+        </dependency>
 
-    <profiles>
-        <profile>
-            <!-- The default profile skips all tests, though you can tune it to run
-                just unit tests based on a custom pattern -->
-            <!-- Separate profiles are provided for running all tests, including Arquillian
-                tests that execute in the specified container -->
-            <id>default</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${version.surefire.plugin}</version>
-                        <configuration>
-                            <skip>true</skip>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-     </profiles>
+
+    </dependencies>
 
 </project>
