@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Calendar;
 
 /**
  * Created by meastman on 03/12/15.
@@ -26,7 +25,7 @@ public class HomeController implements IThymeleafController
             throws Exception {
 
         WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-        ctx.setVariable("ballots", ballotService.getAllBallots());
+        ctx.setVariable("ballots", ballotService.getAllOpenBallots());
 
         templateEngine.process("home", ctx, response.getWriter());
     }

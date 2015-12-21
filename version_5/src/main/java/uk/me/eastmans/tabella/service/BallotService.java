@@ -27,7 +27,7 @@ public class BallotService
     @Inject
     private EntityManager em;
 
-    public List<Ballot> getAllBallots()
+    public List<Ballot> getAllOpenBallots()
     {
         Query query = em.createQuery("SELECT b FROM Ballot b where answerIndex = -1 order by id desc");
         query.setMaxResults(50);
