@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title>Tabella Version Six</title>
 
@@ -10,6 +10,7 @@
 <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 
 <div class="container theme-showcase" role="main">
+    You are logged in as: <span sec:authentication="principal.username">Who</span>
     <div class="well" data-th-each="ballot : ${ballots}">
         <form action="#" data-th-action="@{/ballot/answer}" method="POST" >
             <input type="hidden" name="id" data-th-value="${ballot.id}" value="0"/>
