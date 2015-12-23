@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tabella Version Six</title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+
+<body role="document">
+<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+
+<div class="container theme-showcase" role="main">
+    <div class="well" data-th-each="user : ${users}">
+        <input type="hidden" name="id" data-th-value="${user.id}" value="0"/>
+        <label class="ballotTitle" data-th-text="${user.id}+' : '+${user.email}" /><br/>
+    </div>
+</div>
+
+<!--/*/ <th:block th:include="fragments/footerinc :: footer"></th:block> /*/-->
+
+</body>
+
+</html>
