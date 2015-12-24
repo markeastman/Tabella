@@ -1,2 +1,2 @@
-# Tabella version 7
-Extends the spring boot app to use user store and logon
+# Tabella version 8
+We have now used a bootstrap theme to layout the pages in a more user friendly way

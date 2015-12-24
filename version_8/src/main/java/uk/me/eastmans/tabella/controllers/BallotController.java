@@ -52,11 +52,13 @@ public class BallotController {
     }
 
     @RequestMapping(value = "ballot/answer",method = RequestMethod.POST)
-    public String answerBallot(long id, int answerIndex ) {
+    public String answerBallot(Long id, Integer answerIndex ) {
         // Get the ballot and set the answer index
-        Ballot b = ballotService.getBallotById(id);
-        b.setAnswerIndex(answerIndex);
-        ballotService.saveBallot(b);
+        if (id != null && answerIndex != null) {
+            Ballot b = ballotService.getBallotById(id);
+            b.setAnswerIndex(answerIndex);
+            ballotService.saveBallot(b);
+        }
         return "redirect:/home";
     }
 }
