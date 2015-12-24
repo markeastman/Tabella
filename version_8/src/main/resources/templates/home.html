@@ -113,22 +113,22 @@ desired effect
                 </div>
                 <!-- ./col -->
             </div>
-            <div class="box box-solid box-info" data-th-each="ballot : ${ballots}">
-                <div class="box-header">
-                    <h3 class="box-title" data-th-text="${ballot.id}+' : '+${ballot.question}">Question</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                    <form action="#" data-th-action="@{/ballot/answer}" method="POST" >
-                        <input type="hidden" name="id" data-th-value="${ballot.id}" value="0"/>
-                        <div class="ballotAnswers">
-                            <div class="radio" data-th-each="answer,status : ${ballot.answers}">
-                                <label><input type="radio" name="answerIndex" data-th-value="${status.index}" data-th-text="${answer}" >option</input></label>
+            <form action="#" data-th-action="@{/ballot/answer}" method="POST" >
+                <div class="box box-solid box-default" data-th-each="ballot : ${ballots}">
+                    <div class="box-header bg-purple">
+                        <h3 class="box-title" data-th-text="${ballot.id}+' : '+${ballot.question}">Question</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body noPaddingTop">
+                            <input type="hidden" name="id" data-th-value="${ballot.id}" value="0"/>
+                            <div class="ballotAnswers">
+                                <div class="radio" data-th-each="answer,status : ${ballot.answers}">
+                                    <label><input type="radio" name="answerIndex" data-th-value="${status.index}" data-th-text="${answer}" >option</input></label>
+                                </div>
                             </div>
-                        </div>
-                        <button type="submit" class="btn btn-default btn-success">Confirm</button>
-                    </form>
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
+                            <button type="submit" class="btn btn-default btn-success">Confirm</button>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </form>
 
         </section>
         <!-- /.content -->
