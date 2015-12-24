@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd19341c-db01-4a20-a411-54dc03d1d34c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/footerinc.html" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/header.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/MasterPage.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../version_2/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../version_2/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../version_3/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../version_3/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../version_6/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../version_6/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/uk/me/eastmans/tabella/controllers/BallotController.java" afterPath="$PROJECT_DIR$/src/main/java/uk/me/eastmans/tabella/controllers/BallotController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/plugins/ckeditor/CHANGES.md" afterPath="$PROJECT_DIR$/src/main/resources/static/plugins/ckeditor/CHANGES.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/plugins/ckeditor/LICENSE.md" afterPath="$PROJECT_DIR$/src/main/resources/static/plugins/ckeditor/LICENSE.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/plugins/ckeditor/plugins/scayt/LICENSE.md" afterPath="$PROJECT_DIR$/src/main/resources/static/plugins/ckeditor/plugins/scayt/LICENSE.md" />
@@ -18,12 +13,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/plugins/ckeditor/plugins/wsc/LICENSE.md" afterPath="$PROJECT_DIR$/src/main/resources/static/plugins/ckeditor/plugins/wsc/LICENSE.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/plugins/ckeditor/plugins/wsc/README.md" afterPath="$PROJECT_DIR$/src/main/resources/static/plugins/ckeditor/plugins/wsc/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/plugins/ckeditor/skins/moono/readme.md" afterPath="$PROJECT_DIR$/src/main/resources/static/plugins/ckeditor/skins/moono/readme.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/create.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/create.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/headerinc.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/headerinc.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/home.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/home.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/users.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/users.html" />
     </list>
     <ignored path="Tabella version_8.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -68,11 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="home.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.5">
-              <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.67336684">
+              <caret line="71" column="52" selection-start-line="71" selection-start-column="52" selection-end-line="71" selection-end-column="52" />
               <folding>
                 <element signature="n#aside#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
               </folding>
@@ -134,13 +124,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider editor-type-id="MarkdownPreviewEditor">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.025553662">
+            <state vertical-scroll-proportion="-0.44117647">
               <caret line="1" column="82" selection-start-line="1" selection-start-column="82" selection-end-line="1" selection-end-column="82" />
               <folding />
             </state>
@@ -178,9 +168,9 @@
         <option value="$PROJECT_DIR$/src/main/resources/templates/fragments/MasterPage.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/create.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/fragments/headerinc.html" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/home.html" />
         <option value="$PROJECT_DIR$/src/main/java/uk/me/eastmans/tabella/controllers/BallotController.java" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/home.html" />
       </list>
     </option>
   </component>
@@ -750,7 +740,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450887230805</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Changed the pages to use the AdminLTE theme">
+      <created>1450953688659</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1450953688659</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -786,7 +782,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added the AdminLTE bootstrap theme" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added the AdminLTE bootstrap theme" />
+    <MESSAGE value="Changed the pages to use the AdminLTE theme" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed the pages to use the AdminLTE theme" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -883,16 +880,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.5">
-          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-          <folding>
-            <element signature="n#aside#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/uk/me/eastmans/tabella/controllers/HomeController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -914,9 +901,19 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.025553662">
+        <state vertical-scroll-proportion="-0.44117647">
           <caret line="1" column="82" selection-start-line="1" selection-start-column="82" selection-end-line="1" selection-end-column="82" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.67336684">
+          <caret line="71" column="52" selection-start-line="71" selection-start-column="52" selection-end-line="71" selection-end-column="52" />
+          <folding>
+            <element signature="n#aside#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
