@@ -13,6 +13,9 @@ public interface BallotService {
 
     List<Ballot> getUnasweredBallotsForUser( User user );
 
+    long getBallotCountForUser(User user);
+    long getBallotCountAnsweredForUser(User user);
+
     Ballot getBallotById(Long id);
 
     Ballot saveBallot(Ballot ballot);

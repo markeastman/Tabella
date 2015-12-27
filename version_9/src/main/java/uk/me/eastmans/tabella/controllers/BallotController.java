@@ -38,7 +38,7 @@ public class BallotController {
     }
 
     @RequestMapping(value = "ballot/save",method = RequestMethod.POST)
-    public String saveBallot(Ballot ballot) {
+    public String saveBallot(Ballot ballot, Authentication authentication) {
         // trim any null answers
         List<String> answers = ballot.getAnswers();
         ListIterator<String> iterator = ballot.getAnswers().listIterator();
@@ -48,6 +48,8 @@ public class BallotController {
             if (answer == null || answer.trim().length() == 0)
                 iterator.remove();
         }
+        CurrentUser currentUser = (CurrentUser) authentication.getPrincipal();
+        ballot.setUser(currentUser.getUser());
         ballotService.saveBallot(ballot);
         return "redirect:/home";
     }

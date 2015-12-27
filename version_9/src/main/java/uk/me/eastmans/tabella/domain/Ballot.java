@@ -18,6 +18,9 @@ public class Ballot
     @GeneratedValue
     private Long id;
 
+    @ManyToOne
+    private User user;
+
     @NotNull
     @Size(min = 1, max = 255)
     private String question;
@@ -46,6 +49,14 @@ public class Ballot
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getQuestion() {

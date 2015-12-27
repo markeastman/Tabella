@@ -29,6 +29,9 @@ public class BallotServiceImpl implements BallotService {
     @Override
     public List<Ballot> getUnasweredBallotsForUser(User user ) { return ballotRepository.getUnasweredBallotsForUser(user); }
 
+    public long getBallotCountForUser(User user) { return ballotRepository.countByUser(user); }
+    public long getBallotCountAnsweredForUser(User user) { return ballotRepository.getBallotCountAnsweredForUser(user); }
+
     @Override
     public Ballot getBallotById(Long id) {
         return ballotRepository.findOne(id);

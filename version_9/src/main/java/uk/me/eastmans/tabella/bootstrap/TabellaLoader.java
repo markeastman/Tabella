@@ -37,15 +37,6 @@ public class TabellaLoader implements ApplicationListener<ContextRefreshedEvent>
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
-        Ballot b = new Ballot();
-        b.setQuestion( "What is your favourite colour?");
-        List<String> answers = b.getAnswers();
-        answers.add( "red" );
-        answers.add( "green" );
-        answers.add( "blue" );
-
-        ballotRepository.save(b);
-
         User admin = new User();
         admin.setEmail("mark@eastmans.me.uk");
         admin.setPasswordHash(new BCryptPasswordEncoder().encode("password"));
@@ -59,5 +50,35 @@ public class TabellaLoader implements ApplicationListener<ContextRefreshedEvent>
         user.setRole(Role.USER);
 
         userRepository.save(user);
+
+        Ballot b = new Ballot();
+        b.setUser(user);
+        b.setQuestion( "What is your favourite colour?");
+        List<String> answers = b.getAnswers();
+        answers.add( "red" );
+        answers.add( "green" );
+        answers.add( "blue" );
+
+        ballotRepository.save(b);
+
+        Ballot b2 = new Ballot();
+        b2.setUser(user);
+        b2.setQuestion( "What is your favourite shape?");
+        List<String> answers2 = b2.getAnswers();
+        answers2.add( "square" );
+        answers2.add( "circle" );
+        answers2.add( "triangle" );
+
+        ballotRepository.save(b2);
+
+        Ballot b3 = new Ballot();
+        b3.setUser(admin);
+        b3.setQuestion( "What is your favourite computer?");
+        List<String> answers3 = b3.getAnswers();
+        answers3.add( "laptop" );
+        answers3.add( "tablet" );
+        answers3.add( "phone" );
+
+        ballotRepository.save(b3);
     }
 }
