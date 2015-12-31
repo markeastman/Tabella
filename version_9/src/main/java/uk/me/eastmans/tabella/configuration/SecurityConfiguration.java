@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .permitAll()
             .and()
             .logout()
-            .logoutUrl("/logout")
+            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
             .deleteCookies("remember-me")
             .invalidateHttpSession(true)
             .logoutSuccessUrl("/")
@@ -46,7 +47,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .rememberMe()
         ;
 
-        //httpSecurity.csrf().disable();
         httpSecurity.headers().frameOptions().disable();
     }
 

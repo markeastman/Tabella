@@ -3,6 +3,8 @@ package uk.me.eastmans.tabella.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import uk.me.eastmans.tabella.domain.Ballot;
@@ -11,14 +13,18 @@ import uk.me.eastmans.tabella.services.BallotResultService;
 import uk.me.eastmans.tabella.services.BallotService;
 import uk.me.eastmans.tabella.services.CurrentUser;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 
 /**
  * Created by meastman on 22/12/15.
  */
 @Controller
 public class BallotController {
+
+    static private String[] colors = { "#f56954", "#00a65a", "#f39c12", "#00c0ef", "#3c8dbc", "#d2d6de"};
 
     private BallotService ballotService;
 
@@ -67,5 +73,41 @@ public class BallotController {
             ballotAnswerService.saveBallotAnswer(answer);
         }
         return "redirect:/home";
+    }
+
+    @RequestMapping(value = "ballot/results")
+    public String getAnsweredBallots(Model model, Authentication authentication ) {
+        CurrentUser currentUser = (CurrentUser) authentication.getPrincipal();
+        Map<Ballot,Map<Integer,Long>> ballots = ballotService.getAnsweredBallots(currentUser.getUser());
+        System.out.println( "Ballots are " + ballots );
+        model.addAttribute("ballots", ballots);
+        return "answeredBallots";
+    }
+
+    @RequestMapping(value = "ballotResult/{id}")
+    public String getBallotAnalysis(@PathVariable Long id, Model model)
+    {
+        Ballot b = ballotService.getBallotById(id);
+        model.addAttribute("ballot", b);
+        List<BallotResult> results = ballotAnswerService.getBallotAnswers(b);
+        model.addAttribute("results", results);
+        // to help the ui lets calculate the sums for each answer
+        long[] counts = new long[b.getAnswers().size()];
+        for (BallotResult r : results)
+        {
+            counts[r.getAnswerIndex()] = counts[r.getAnswerIndex()] + 1;
+        }
+        model.addAttribute("counts", counts);
+        // Build the pie data for the chart
+        PieDataDTO[] pieData = new PieDataDTO[counts.length];
+        for (int i = 0; i < pieData.length; i++) {
+            pieData[i] = new PieDataDTO();
+            pieData[i].setValue(counts[i]);
+            pieData[i].setColor(colors[i % colors.length]);
+            pieData[i].setHighlight(colors[i % colors.length]);
+            pieData[i].setLabel(b.getAnswers().get(i));
+        }
+        model.addAttribute("pieData",pieData);
+        return "ballotAnalysis";
     }
 }

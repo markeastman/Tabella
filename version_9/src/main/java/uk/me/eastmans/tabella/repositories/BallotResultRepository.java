@@ -2,8 +2,11 @@ package uk.me.eastmans.tabella.repositories;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import uk.me.eastmans.tabella.domain.Ballot;
 import uk.me.eastmans.tabella.domain.BallotResult;
 import uk.me.eastmans.tabella.domain.User;
+
+import java.util.List;
 
 /**
  * Created by meastman on 22/12/15.
@@ -15,5 +18,7 @@ public interface BallotResultRepository extends CrudRepository<BallotResult, Lon
 
     @Query("select count(ba) from BallotResult ba where ba.user = ?1 )")
     public long getBallotCountAnsweredByUser(User user);
+
+    public List<BallotResult> getByBallot(Ballot b);
 
 }

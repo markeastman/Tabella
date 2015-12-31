@@ -7,12 +7,15 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import uk.me.eastmans.tabella.domain.Ballot;
+import uk.me.eastmans.tabella.domain.BallotResult;
 import uk.me.eastmans.tabella.domain.Role;
 import uk.me.eastmans.tabella.domain.User;
 import uk.me.eastmans.tabella.repositories.BallotRepository;
+import uk.me.eastmans.tabella.repositories.BallotResultRepository;
 import uk.me.eastmans.tabella.repositories.UserRepository;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by meastman on 22/12/15.
@@ -22,6 +25,8 @@ public class TabellaLoader implements ApplicationListener<ContextRefreshedEvent>
 
     private BallotRepository ballotRepository;
 
+    private BallotResultRepository ballotResultRepository;
+
     private UserRepository userRepository;
 
     private Logger log = Logger.getLogger(TabellaLoader.class);
@@ -29,6 +34,11 @@ public class TabellaLoader implements ApplicationListener<ContextRefreshedEvent>
     @Autowired
     public void setBallotRepository(BallotRepository ballotRepository) {
         this.ballotRepository = ballotRepository;
+    }
+
+    @Autowired
+    public void setBallotResultRepository(BallotResultRepository ballotResultRepository) {
+        this.ballotResultRepository = ballotResultRepository;
     }
 
     @Autowired
@@ -80,5 +90,19 @@ public class TabellaLoader implements ApplicationListener<ContextRefreshedEvent>
         answers3.add( "phone" );
 
         ballotRepository.save(b3);
+
+        Random r = new Random();
+        for (int i = 0; i < 10; i++)
+        {
+            User u = new User();
+            u.setEmail("u"+i+"@eastmans.me.uk");
+            u.setPasswordHash(new BCryptPasswordEncoder().encode("password"));
+            u.setRole(Role.USER);
+
+            userRepository.save(u);
+
+            BallotResult br = new BallotResult( u, b3, r.nextInt(3));
+            ballotResultRepository.save(br);
+        }
     }
 }
