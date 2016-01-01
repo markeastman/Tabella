@@ -58,7 +58,7 @@ public class BallotController {
     }
 
     @RequestMapping(value = "ballot/answer",method = RequestMethod.POST)
-    public String answerBallot(Long id, Integer answerIndex, Authentication authentication ) {
+    public String answerBallot(Long id, Integer answerIndex, float latitude, float longitude, Authentication authentication ) {
         // Get the ballot and set the answer index
         if (id != null && answerIndex != null) {
             BallotResult answer = new BallotResult();
@@ -67,6 +67,8 @@ public class BallotController {
             answer.setUser(currentUser.getUser());
             answer.setBallot( b );
             answer.setAnswerIndex(answerIndex);
+            answer.setLatitude(latitude);
+            answer.setLongitude(longitude);
             ballotAnswerService.saveBallotAnswer(answer);
         }
         return "redirect:/home";
@@ -108,11 +110,12 @@ public class BallotController {
         Random r = new Random();
         MapDataDTO[] mapData = new MapDataDTO[results.size()];
         for (int i = 0; i < results.size(); i++) {
+            BallotResult br = results.get(i);
             mapData[i] = new MapDataDTO();
-            mapData[i].setLatLng( new float[] {r.nextFloat() * 80, r.nextFloat() * 180 - 90 } );
-            mapData[i].setName(b.getAnswers().get(results.get(i).getAnswerIndex()));
+            mapData[i].setLatLng( new float[] {br.getLatitude(), br.getLongitude() } );
+            mapData[i].setName(b.getAnswers().get(br.getAnswerIndex()));
             MapMarkerStyle style = new MapMarkerStyle();
-            style.setFill(colors[results.get(i).getAnswerIndex() % colors.length]);
+            style.setFill(colors[br.getAnswerIndex() % colors.length]);
             mapData[i].setStyle(style);
         }
         model.addAttribute("mapData",mapData);

@@ -102,6 +102,8 @@ public class TabellaLoader implements ApplicationListener<ContextRefreshedEvent>
             userRepository.save(u);
 
             BallotResult br = new BallotResult( u, b3, r.nextInt(3));
+            br.setLatitude(r.nextFloat() * 80);
+            br.setLongitude(r.nextFloat() * 180 - 90);
             ballotResultRepository.save(br);
         }
     }

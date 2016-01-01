@@ -21,6 +21,10 @@ public class BallotResult
 
     private Integer answerIndex = -1;
 
+    private float longitude;
+
+    private float latitude;
+
     public BallotResult() {}
 
     public BallotResult(User u, Ballot b, int answer)
@@ -60,6 +64,22 @@ public class BallotResult
 
     public void setAnswerIndex(Integer answerIndex) {
         this.answerIndex = answerIndex;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
+    }
+
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
     }
 
     @Override
