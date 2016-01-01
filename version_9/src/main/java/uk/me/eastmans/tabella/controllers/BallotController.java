@@ -13,10 +13,7 @@ import uk.me.eastmans.tabella.services.BallotResultService;
 import uk.me.eastmans.tabella.services.BallotService;
 import uk.me.eastmans.tabella.services.CurrentUser;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by meastman on 22/12/15.
@@ -108,6 +105,17 @@ public class BallotController {
             pieData[i].setLabel(b.getAnswers().get(i));
         }
         model.addAttribute("pieData",pieData);
+        Random r = new Random();
+        MapDataDTO[] mapData = new MapDataDTO[results.size()];
+        for (int i = 0; i < results.size(); i++) {
+            mapData[i] = new MapDataDTO();
+            mapData[i].setLatLng( new float[] {r.nextFloat() * 80, r.nextFloat() * 180 - 90 } );
+            mapData[i].setName(b.getAnswers().get(results.get(i).getAnswerIndex()));
+            MapMarkerStyle style = new MapMarkerStyle();
+            style.setFill(colors[results.get(i).getAnswerIndex() % colors.length]);
+            mapData[i].setStyle(style);
+        }
+        model.addAttribute("mapData",mapData);
         return "ballotAnalysis";
     }
 }
