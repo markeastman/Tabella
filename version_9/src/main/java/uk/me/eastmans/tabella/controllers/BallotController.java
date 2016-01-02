@@ -90,6 +90,9 @@ public class BallotController {
         model.addAttribute("ballot", b);
         List<BallotResult> results = ballotAnswerService.getBallotAnswers(b);
         model.addAttribute("results", results);
+        model.addAttribute("resultsCount", results.size());
+        model.addAttribute("colors",colors);
+        model.addAttribute("colorsCount",colors.length);
         // to help the ui lets calculate the sums for each answer
         long[] counts = new long[b.getAnswers().size()];
         for (BallotResult r : results)

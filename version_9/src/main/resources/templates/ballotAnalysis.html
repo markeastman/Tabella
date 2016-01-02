@@ -59,11 +59,11 @@ desired effect
                 </div><!-- /.box-header -->
                 <div class="box-body">
                     <div class="ballotAnswers">
-                        <div data-th-each="answer,status : ${ballot.answers}" >
-                            <!-- Progress bars -->
-                            <div class="clearfix">
-                                <span class="pull-left" data-th-text="${answer}">Answer</span>
-                                <small class="pull-right" data-th-text="${counts[status.index]}">70%</small>
+                        <div class="progress-group" data-th-each="answer,status : ${ballot.answers}">
+                            <span class="progress-text" data-th-text="${answer}+' out of '+${resultsCount}">Answer</span>
+                            <span class="progress-number" data-th-text="${counts[status.index]}+'/'+${resultsCount}">160/200</span>
+                            <div class="progress sm">
+                                <div class="progress-bar" th:style="'background-color:'+${colors[status.index % colorsCount]}+';width:'+100*${counts[status.index]}/${resultsCount}+'%;'" style="width: 80%"></div>
                             </div>
                         </div>
                     </div>
