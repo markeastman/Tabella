@@ -60,7 +60,7 @@ desired effect
                 <div class="box-body">
                     <div class="ballotAnswers">
                         <div class="progress-group" data-th-each="answer,status : ${ballot.answers}">
-                            <span class="progress-text" data-th-text="${answer}+' out of '+${resultsCount}">Answer</span>
+                            <span class="progress-text" data-th-text="${answer}">Answer</span>
                             <span class="progress-number" data-th-text="${counts[status.index]}+'/'+${resultsCount}">160/200</span>
                             <div class="progress sm">
                                 <div class="progress-bar" th:style="'background-color:'+${colors[status.index % colorsCount]}+';width:'+100*${counts[status.index]}/${resultsCount}+'%;'" style="width: 80%"></div>
