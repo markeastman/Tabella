@@ -3,7 +3,7 @@
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
@@ -38,8 +38,7 @@ desired effect
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Version 8
-                <small>You are logged in as: <span sec:authentication="principal.username">Who</span></small>
+                Version 9
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -88,7 +87,7 @@ desired effect
                         <div class="inner">
                             <h3 data-th-text="${asked}">44</h3>
 
-                            <p>Asked</p>
+                            <p>Asked but not answered</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-clipboard"></i>

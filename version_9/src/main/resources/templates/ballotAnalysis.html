@@ -3,7 +3,7 @@
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
     <!-- jvectormap -->
@@ -41,8 +41,7 @@ desired effect
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Version 8
-                <small>You are logged in as: <span sec:authentication="principal.username">Who</span></small>
+                Version 9
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -76,14 +75,14 @@ desired effect
                 </div><!-- /.box-header -->
                 <div class="box-body">
                     <div class="row">
-                        <div class="col-md-9 col-sm-8">
+                        <div class="col-md-6 col-sm-8">
                             <div class="pad">
                                 <div class="chart">
                                     <canvas id="pieChart" style="height:250px"></canvas>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-4">
+                        <div class="col-md-6 col-sm-4">
                             <div class="pad box-pane-right" id="legendDiv" style="min-height: 250px"/>
                         </div>
                     </div>

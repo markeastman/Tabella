@@ -49,6 +49,7 @@ public class TabellaLoader implements ApplicationListener<ContextRefreshedEvent>
 
         User admin = new User();
         admin.setEmail("mark@eastmans.me.uk");
+        admin.setFullName("Mark Eastman");
         admin.setPasswordHash(new BCryptPasswordEncoder().encode("password"));
         admin.setRole(Role.ADMIN);
 
@@ -56,6 +57,7 @@ public class TabellaLoader implements ApplicationListener<ContextRefreshedEvent>
 
         User user = new User();
         user.setEmail("lynn@eastmans.me.uk");
+        user.setFullName("Lynn Eastman");
         user.setPasswordHash(new BCryptPasswordEncoder().encode("password"));
         user.setRole(Role.USER);
 
@@ -96,6 +98,7 @@ public class TabellaLoader implements ApplicationListener<ContextRefreshedEvent>
         {
             User u = new User();
             u.setEmail("u"+i+"@eastmans.me.uk");
+            u.setFullName("U" + i + " Eastman");
             u.setPasswordHash(new BCryptPasswordEncoder().encode("password"));
             u.setRole(Role.USER);
 
