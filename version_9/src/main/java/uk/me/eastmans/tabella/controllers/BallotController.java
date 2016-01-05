@@ -110,7 +110,6 @@ public class BallotController {
             pieData[i].setLabel(b.getAnswers().get(i));
         }
         model.addAttribute("pieData",pieData);
-        Random r = new Random();
         MapDataDTO[] mapData = new MapDataDTO[results.size()];
         for (int i = 0; i < results.size(); i++) {
             BallotResult br = results.get(i);
