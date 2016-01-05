@@ -94,7 +94,7 @@ public class TabellaLoader implements ApplicationListener<ContextRefreshedEvent>
         ballotRepository.save(b3);
 
         Random r = new Random();
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
         {
             User u = new User();
             u.setEmail("u"+i+"@eastmans.me.uk");
@@ -104,10 +104,13 @@ public class TabellaLoader implements ApplicationListener<ContextRefreshedEvent>
 
             userRepository.save(u);
 
-            BallotResult br = new BallotResult( u, b3, r.nextInt(3));
-            br.setLatitude(r.nextFloat() * 80);
-            br.setLongitude(r.nextFloat() * 180 - 90);
-            ballotResultRepository.save(br);
+            // Only provide answers for first 10
+            if (i < 10) {
+                BallotResult br = new BallotResult(u, b3, r.nextInt(3));
+                br.setLatitude(r.nextFloat() * 80);
+                br.setLongitude(r.nextFloat() * 180 - 90);
+                ballotResultRepository.save(br);
+            }
         }
     }
 }

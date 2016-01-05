@@ -128,6 +128,7 @@ desired effect
 <!-- page script -->
 <script th:inline="javascript">
 /*<![CDATA[*/
+var map;
   $(function () {
     /* ChartJS
      * -------
@@ -172,38 +173,92 @@ desired effect
     // and append it to your page somewhere
     $('#legendDiv').append(legend);
 
-$('#world-map-markers').vectorMap({
-    map: 'world_mill_en',
-    normalizeFunction: 'polynomial',
-    hoverOpacity: 0.7,
-    hoverColor: false,
-    backgroundColor: 'transparent',
-    regionStyle: {
-      initial: {
-        fill: 'rgba(210, 214, 222, 1)',
-        "fill-opacity": 1,
-        stroke: 'none',
-        "stroke-width": 0,
-        "stroke-opacity": 1
-      },
-      hover: {
-        "fill-opacity": 0.7,
-        cursor: 'pointer'
-      },
-      selected: {
-        fill: 'yellow'
-      },
-      selectedHover: {}
-    },
-    markerStyle: {
-      initial: {
-        fill: '#00a65a',
-        stroke: '#111'
-      }
-    },
-    markers: /*[[${mapData}]]*/
-  });
+    $('#world-map-markers').vectorMap({
+        map: 'world_mill_en',
+        normalizeFunction: 'polynomial',
+        hoverOpacity: 0.7,
+        hoverColor: false,
+        backgroundColor: 'transparent',
+        regionStyle: {
+          initial: {
+            fill: 'rgba(210, 214, 222, 1)',
+            "fill-opacity": 1,
+            stroke: 'none',
+            "stroke-width": 0,
+            "stroke-opacity": 1
+          },
+          hover: {
+            "fill-opacity": 0.7,
+            cursor: 'pointer'
+          },
+          selected: {
+            fill: 'yellow'
+          },
+          selectedHover: {}
+        },
+        markerStyle: {
+          initial: {
+            fill: '#00a65a',
+            stroke: '#111'
+          }
+        },
+        markers: /*[[${mapData}]]*/
+     });
+  map = $('#world-map-markers').vectorMap('get', 'mapObject');
+  // start the web socket
+  connect();
+
 });
+
+    var sock;
+    var connected = false;
+    var mapMarkerIndex = 0;
+
+    function setConnected(state)
+    {
+        connected = state;
+    }
+
+    function connect() {
+        sock = new WebSocket('ws://localhost:28080/websocketHandler');
+        sock.onopen = function(e) {
+            console.log('open');
+            sendMessage(''+/*[[${ballot.id}]]*/);
+        };
+
+        sock.onmessage = function(e) {
+            console.log('message: ' + e.data);
+            addMapMarker(JSON.parse(e.data));
+        };
+
+        sock.onclose = function(e) {
+            console.log('close');
+        }
+
+        sock.onerror = function(e) {
+            console.log('error');
+        }
+
+        setConnected(true);
+    }
+
+    function sendMessage(id) {
+        sock.send(id);
+    }
+
+    function disconnect() {
+        if (sock != null)
+            sock.close();
+
+        setConnected(false);
+        console.log("disconnected");
+    }
+
+    function addMapMarker(marker) {
+        console.log("Adding marker: " + marker);
+        map.addMarker("added_"+mapMarkerIndex,marker);
+        mapMarkerIndex++;
+    }
 
 /*]]>*/
 </script>

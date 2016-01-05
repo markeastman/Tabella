@@ -9,9 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import uk.me.eastmans.tabella.domain.Ballot;
 import uk.me.eastmans.tabella.domain.BallotResult;
+import uk.me.eastmans.tabella.services.BallotAnswerNotificationService;
 import uk.me.eastmans.tabella.services.BallotResultService;
 import uk.me.eastmans.tabella.services.BallotService;
 import uk.me.eastmans.tabella.services.CurrentUser;
+import uk.me.eastmans.tabella.views.MapDataDTO;
+import uk.me.eastmans.tabella.views.MapMarkerStyle;
+import uk.me.eastmans.tabella.views.PieDataDTO;
+import uk.me.eastmans.tabella.views.ViewDTOHelper;
 
 import java.util.*;
 
@@ -21,17 +26,21 @@ import java.util.*;
 @Controller
 public class BallotController {
 
-    static private String[] colors = { "#f56954", "#00a65a", "#f39c12", "#00c0ef", "#3c8dbc", "#d2d6de"};
-
     private BallotService ballotService;
 
     private BallotResultService ballotAnswerService;
 
+    private BallotAnswerNotificationService notificationService;
+
+    private Random r = new Random(); // Used for getting random positions
+
     @Autowired
-    public void setBallotService(BallotService ballotService, BallotResultService ballotAnswerService)
+    public void setBallotService(BallotService ballotService, BallotResultService ballotAnswerService,
+                                 BallotAnswerNotificationService notificationService)
     {
         this.ballotService = ballotService;
         this.ballotAnswerService = ballotAnswerService;
+        this.notificationService = notificationService;
     }
 
     @RequestMapping("ballot/new")
@@ -67,9 +76,16 @@ public class BallotController {
             answer.setUser(currentUser.getUser());
             answer.setBallot( b );
             answer.setAnswerIndex(answerIndex);
+            /* We should use the passed in values but to simulate coordinates better we will randomize these
             answer.setLatitude(latitude);
             answer.setLongitude(longitude);
+            */
+            answer.setLatitude(r.nextFloat() * 80);
+            answer.setLongitude(r.nextFloat() * 180 - 90);
             ballotAnswerService.saveBallotAnswer(answer);
+            // We need to convert the result to view DTO objects
+            MapDataDTO mapDataDTO = ViewDTOHelper.convertToMapDataDTO(answer);
+            notificationService.notifyBallotResult(answer,ViewDTOHelper.convertToJSONString(mapDataDTO));
         }
         return "redirect:/home";
     }
@@ -91,8 +107,8 @@ public class BallotController {
         List<BallotResult> results = ballotAnswerService.getBallotAnswers(b);
         model.addAttribute("results", results);
         model.addAttribute("resultsCount", results.size());
-        model.addAttribute("colors",colors);
-        model.addAttribute("colorsCount",colors.length);
+        model.addAttribute("colors",ViewDTOHelper.colors);
+        model.addAttribute("colorsCount",ViewDTOHelper.colors.length);
         // to help the ui lets calculate the sums for each answer
         long[] counts = new long[b.getAnswers().size()];
         for (BallotResult r : results)
@@ -101,25 +117,9 @@ public class BallotController {
         }
         model.addAttribute("counts", counts);
         // Build the pie data for the chart
-        PieDataDTO[] pieData = new PieDataDTO[counts.length];
-        for (int i = 0; i < pieData.length; i++) {
-            pieData[i] = new PieDataDTO();
-            pieData[i].setValue(counts[i]);
-            pieData[i].setColor(colors[i % colors.length]);
-            pieData[i].setHighlight(colors[i % colors.length]);
-            pieData[i].setLabel(b.getAnswers().get(i));
-        }
+        PieDataDTO[] pieData = ViewDTOHelper.convertToPieData(b, counts);
         model.addAttribute("pieData",pieData);
-        MapDataDTO[] mapData = new MapDataDTO[results.size()];
-        for (int i = 0; i < results.size(); i++) {
-            BallotResult br = results.get(i);
-            mapData[i] = new MapDataDTO();
-            mapData[i].setLatLng( new float[] {br.getLatitude(), br.getLongitude() } );
-            mapData[i].setName(b.getAnswers().get(br.getAnswerIndex()));
-            MapMarkerStyle style = new MapMarkerStyle();
-            style.setFill(colors[br.getAnswerIndex() % colors.length]);
-            mapData[i].setStyle(style);
-        }
+        MapDataDTO[] mapData = ViewDTOHelper.convertToMapDataDTO(results);
         model.addAttribute("mapData",mapData);
         return "ballotAnalysis";
     }

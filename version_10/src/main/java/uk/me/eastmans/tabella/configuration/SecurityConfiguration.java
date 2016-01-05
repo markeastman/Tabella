@@ -27,7 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .csrf().requireCsrfProtectionMatcher(new AllExceptUrlStartedWith("/console"))
             .and()
             .authorizeRequests()
-            .antMatchers("/", "/console/**", "/dist/**", "/plugins/**", "/bootstrap/**", "/public/**", "/webjars/**").permitAll()
+            .antMatchers("/", "/console/**", "/dist/**", "/plugins/**", "/bootstrap/**", "/public/**", "/webjars/**", "/websocketHandler/**").permitAll()
             .antMatchers("/users/**").hasAuthority("ADMIN")
             .anyRequest().fullyAuthenticated()
             .and()

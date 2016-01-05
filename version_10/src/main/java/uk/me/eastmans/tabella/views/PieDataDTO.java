@@ -1,4 +1,4 @@
-package uk.me.eastmans.tabella.controllers;
+package uk.me.eastmans.tabella.views;
 
 /**
  * Created by meastman on 31/12/15.
