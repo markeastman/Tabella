@@ -17,6 +17,7 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by meastman on 06/01/16.
@@ -54,8 +55,8 @@ public class PostBallotResultsTest {
             } finally {
                 response2.close();
             }
-
-            // Now get the home page again
+/*
+            // Now get the home page
             try {
                 HttpGet httpget = new HttpGet("http://localhost:28080/home");
 
@@ -82,6 +83,33 @@ public class PostBallotResultsTest {
                 System.out.println(responseBody);
             } finally {
                 httpclient.close();
+            }
+*/
+            Random r = new Random();
+            // For now it does not matter if we submit for the same user multiple answers
+            for (int i = 0; i < 20; i++) {
+                float latitude = r.nextFloat() * 120 - 40;
+                float longitude = r.nextFloat() * 360 - 180;
+                int answerIndex = r.nextInt(3);
+
+                HttpUriRequest postAnswer = RequestBuilder.post()
+                        .setUri(new URI("http://localhost:28080/ballot/answer"))
+                        .addParameter("id", "3")
+                        .addParameter("latitude", String.valueOf(latitude))
+                        .addParameter("longitude", String.valueOf(longitude))
+                        .addParameter("answerIndex", String.valueOf(answerIndex))
+                        .build();
+
+                CloseableHttpResponse response3 = httpclient.execute(postAnswer);
+                try {
+                    HttpEntity entity = response3.getEntity();
+
+                    System.out.println("Post Ballot Answer post: " + response3.getStatusLine());
+                    EntityUtils.consume(entity);
+                    Thread.sleep(100);
+                } finally {
+                    response3.close();
+                }
             }
 
         } finally {

@@ -76,12 +76,8 @@ public class BallotController {
             answer.setUser(currentUser.getUser());
             answer.setBallot( b );
             answer.setAnswerIndex(answerIndex);
-            /* We should use the passed in values but to simulate coordinates better we will randomize these
             answer.setLatitude(latitude);
             answer.setLongitude(longitude);
-            */
-            answer.setLatitude(r.nextFloat() * 80);
-            answer.setLongitude(r.nextFloat() * 180 - 90);
             ballotAnswerService.saveBallotAnswer(answer);
             // We need to convert the result to view DTO objects
             MapDataDTO mapDataDTO = ViewDTOHelper.convertToMapDataDTO(answer);

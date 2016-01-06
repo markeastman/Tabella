@@ -24,8 +24,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-            .csrf().requireCsrfProtectionMatcher(new AllExceptUrlStartedWith("/console"))
-            .and()
+            //.csrf()//requireCsrfProtectionMatcher(new AllExceptUrlStartedWith("/console"))
+            //.and()
             .authorizeRequests()
             .antMatchers("/", "/console/**", "/dist/**", "/plugins/**", "/bootstrap/**", "/public/**", "/webjars/**", "/websocketHandler/**").permitAll()
             .antMatchers("/users/**").hasAuthority("ADMIN")
@@ -47,6 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .rememberMe()
         ;
 
+        httpSecurity.csrf().disable();
         httpSecurity.headers().frameOptions().disable();
     }
 
