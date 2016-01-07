@@ -14,8 +14,11 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+import org.kohsuke.args4j.*;
+
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -24,7 +27,12 @@ import java.util.Random;
  */
 public class PostBallotResultsTest {
 
+    private static Arguments arguments = new Arguments();
+
     public final static void main(String[] args) throws Exception {
+        if (!processArgs(args))
+            System.exit( -1 );
+
         BasicCookieStore cookieStore = new BasicCookieStore();
         CloseableHttpClient httpclient = HttpClients.custom()
                 .setDefaultCookieStore(cookieStore)
@@ -87,14 +95,14 @@ public class PostBallotResultsTest {
 */
             Random r = new Random();
             // For now it does not matter if we submit for the same user multiple answers
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < arguments.loopCount; i++) {
                 float latitude = r.nextFloat() * 120 - 40;
                 float longitude = r.nextFloat() * 360 - 180;
-                int answerIndex = r.nextInt(3);
+                int answerIndex = r.nextInt(arguments.answerUpperLimit);
 
                 HttpUriRequest postAnswer = RequestBuilder.post()
                         .setUri(new URI("http://localhost:28080/ballot/answer"))
-                        .addParameter("id", "3")
+                        .addParameter("id", String.valueOf(arguments.ballotId))
                         .addParameter("latitude", String.valueOf(latitude))
                         .addParameter("longitude", String.valueOf(longitude))
                         .addParameter("answerIndex", String.valueOf(answerIndex))
@@ -106,7 +114,7 @@ public class PostBallotResultsTest {
 
                     System.out.println("Post Ballot Answer post: " + response3.getStatusLine());
                     EntityUtils.consume(entity);
-                    Thread.sleep(100);
+                    Thread.sleep(arguments.waitMillis);
                 } finally {
                     response3.close();
                 }
@@ -115,7 +123,55 @@ public class PostBallotResultsTest {
         } finally {
             httpclient.close();
         }
+    }
 
+    private static boolean processArgs( String[] args ) throws Exception
+    {
 
+        CmdLineParser parser = new CmdLineParser(arguments);
+        try {
+            // parse the arguments.
+            parser.parseArgument(args);
+
+            // you can parse additional arguments if you want.
+            // parser.parseArgument("more","args");
+
+            // after parsing arguments, you should check
+            // if enough arguments are given.
+
+        } catch( CmdLineException e ) {
+            // if there's a problem in the command line,
+            // you'll get this exception. this will report
+            // an error message.
+            System.err.println(e.getMessage());
+            System.err.println("java PostBallotResultsTest [options...] arguments...");
+            // print the list of available options
+            parser.printUsage(System.err);
+            System.err.println();
+
+            // print option sample. This is useful some time
+            System.err.println("  Example: java PostBallotResultsTest"+parser.printExample(OptionHandlerFilter.ALL));
+
+            return false;
+        }
+        return true;
+    }
+
+    static class Arguments {
+        @Option(name="-id",usage="the ballot id to answer")
+        long ballotId = 3;
+
+        @Option(name="-limit",usage="the answer index limit, random will be [0,limit)")
+        int answerUpperLimit = 3;
+
+        @Option(name="-loop",usage="how many times to loop")
+        int loopCount = 20;
+
+        @Option(name="-wait",usage="the number of millis to wait between answers")
+        int waitMillis = 200;
+
+        // receives other command line parameters than options
+        @Argument
+        private List<String> arguments = new ArrayList<String>();
     }
 }
