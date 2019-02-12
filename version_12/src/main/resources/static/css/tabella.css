@@ -1,0 +1,24 @@
+.noPaddingTop {
+    padding-top: 0px;
+}
+
+.ballotAnswers {
+    padding-left: 10px;
+}
+
+.text-white {
+    color: #fff;
+}
+
+.pie-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 991px) {
+  .pie-legend > li {
+    float: left;
+    margin-right: 10px;
+  }
+}
