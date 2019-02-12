@@ -49,6 +49,30 @@
             <scope>provided</scope>
             <version>${shamrock.version}</version>
         </dependency>
+        <!-- Hibernate ORM specific dependencies -->
+        <dependency>
+            <groupId>org.jboss.shamrock</groupId>
+            <artifactId>shamrock-jpa-deployment</artifactId>
+            <scope>provided</scope>
+            <version>${shamrock.version}</version>
+        </dependency>
+        <!-- JDBC driver dependencies -->
+        <dependency>
+            <groupId>org.jboss.shamrock</groupId>
+            <artifactId>shamrock-jdbc-h2-deployment</artifactId>
+            <scope>provided</scope>
+            <version>${shamrock.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.9.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.8</version>
+        </dependency>
         <dependency>
             <groupId>org.jboss.shamrock</groupId>
             <artifactId>shamrock-arc-deployment</artifactId>

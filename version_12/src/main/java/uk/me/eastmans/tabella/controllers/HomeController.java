@@ -4,7 +4,11 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.FileTemplateResolver;
+import uk.me.eastmans.tabella.bootstrap.TabellaLoader;
 import uk.me.eastmans.tabella.core.DisplayWriter;
+import uk.me.eastmans.tabella.domain.User;
+import uk.me.eastmans.tabella.services.BallotService;
+import uk.me.eastmans.tabella.services.UserService;
 
 import javax.inject.Inject;
 import javax.servlet.ServletConfig;
@@ -19,6 +23,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import java.io.*;
 import java.net.URI;
+import java.util.Optional;
 
 @Path("/")
 public class HomeController {
@@ -29,17 +34,39 @@ public class HomeController {
     @Inject
     private DisplayWriter displayWriter;
 
+    @Inject
+    private TabellaLoader tabellaLoader;
+
+    @Inject
+    private UserService userService;
+
+    @Inject
+    private BallotService ballotService;
+
     @GET
     @Path("/home")
     @Produces(MediaType.TEXT_HTML)
     public void home() throws IOException {
 
+        tabellaLoader.populateDatabase();
+
+        //User u = ((CurrentUser)authentication.getPrincipal()).getUser();
+        Optional<User> u = userService.getUserByEmail("mark@eastmans.me.uk");
+        User user = u.get();
+
+        //model.addAttribute("ballots", ballotService.getUnasweredBallotsForUser(u));
+
+        //long unanswered = ballotResultService.getBallotCountUnansweredByUser(u);
+        //long userAnswered = ballotResultService.getBallotCountAnsweredByUser(u);
+        long asked = ballotService.getBallotCountForUser(user);
+        long answered = ballotService.getBallotCountAnsweredForUser(user);
+
         Context context = new Context();
+        context.setVariable("ballots", null);
         context.setVariable("unanswered", "1");
         context.setVariable("userAnswered", "0");
-        context.setVariable("asked", "2");
-        context.setVariable("answered", "0");
-        StringWriter stringWriter = new StringWriter();
+        context.setVariable("asked", asked);
+        context.setVariable("answered", answered);
         displayWriter.process("home", context, httpServletResponse.getWriter());
     }
 }
